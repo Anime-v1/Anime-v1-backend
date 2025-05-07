@@ -1,5 +1,6 @@
 package com.example.animev1backend.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,4 +31,8 @@ public class Video {
     joinColumns = @JoinColumn(name = "video_id"),
     inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Categories> categories;
+
+    @OneToMany(mappedBy = "video", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<Episode> episodes;
 }
